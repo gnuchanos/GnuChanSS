@@ -6,6 +6,12 @@ X11 and the X ScreenSaver extension (the idle clock), and against D-Bus, which
 carries the inhibit name a video player uses to hold the saver off. It is
 Debian-only, on purpose.
 
+The saver also recognizes common browser window classes automatically. Any
+open browser window prevents it from appearing, including windowed video in
+browsers that do not implement D-Bus inhibition; users do not need to configure
+each browser separately. Fullscreen windows and applications using the
+freedesktop inhibition protocol are handled as well.
+
 ## Building
 
     git clone <repository-url> GnuChanSS
