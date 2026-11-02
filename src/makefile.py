@@ -52,9 +52,9 @@ DESKTOP_FILE = APPS_DIR / "gnuchanss.desktop"
 # replaced on every install, exactly as the window manager's is: the installer
 # owns that file, and a machine installing a new build has to get the settings
 # that build ships with.
-CONFIG_SOURCE = ROOT / "GnuChanSS_config" / "GnuChanSS.py"
+CONFIG_SOURCE = ROOT / "GnuChanSS_config" / "GnuChanSS.conf"
 CONFIG_DIR_NAME = "GnuChanSS"
-CONFIG_FILE_NAME = "GnuChanSS.py"
+CONFIG_FILE_NAME = "GnuChanSS.conf"
 
 SOURCES = (
     "ss_parser.c",
@@ -383,10 +383,14 @@ def install_config() -> None:
             f"have nothing to read"
         )
 
+    legacy = directory / "GnuChanSS.py"
     directory.mkdir(parents=True, exist_ok=True)
     if file_target.exists():
-        file_target.unlink()
-        detail(f"removed the old {file_target}")
+        detail(f"kept existing settings {file_target}")
+        return
+    if legacy.exists():
+        detail(f"kept legacy settings {legacy}; the program reads it safely")
+        return
 
     shutil.copyfile(CONFIG_SOURCE, file_target)
     try:

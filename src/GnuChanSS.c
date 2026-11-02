@@ -665,7 +665,7 @@ int main(int argc, char **argv) {
                    "\n"
                    "Shows a full-screen screen saver after the keyboard and\n"
                    "pointer have been idle for IdleSeconds (see\n"
-                   "~/.config/GnuChanSS/GnuChanSS.py). Any key, click or\n"
+                   "~/.config/GnuChanSS/GnuChanSS.conf). Any key, click or\n"
                    "pointer move ends it. A program playing a video can hold\n"
                    "it off through the freedesktop ScreenSaver name.\n");
             return 0;

@@ -28,8 +28,10 @@ freedesktop inhibition protocol are handled as well.
 The makefile installs the build dependencies with apt-get, compiles the sources,
 and re-runs itself through sudo to write into `/usr/local/bin`. The binary goes
 to `/usr/local/bin/GnuChanSS`; a desktop entry is written to
-`/usr/share/applications/gnuchanss.desktop`; the settings file goes under
-`~/.config/GnuChanSS/`.
+`/usr/share/applications/gnuchanss.desktop`; `GnuChanSS.conf` goes under
+`~/.config/GnuChanSS/`. The file uses plain `Key = value` lines, like
+GnuChanSettings' `system.conf`. Existing `GnuChanSS.py` settings are read by a
+restricted static parser when no `.conf` exists; they are never executed.
 
 The makefile takes an action as its first argument: `install` (the default),
 `build`, `run` and `uninstall`.

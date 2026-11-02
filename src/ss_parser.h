@@ -1,15 +1,15 @@
 /*
- * ss_parser.h — enough of the Python grammar to read the settings script, and
+ * ss_parser.h — the small value grammar for settings files, and
  * nothing more.
  *
- * The settings file is not a config format with Python in it; it is a Python
- * script, and the parts of the language it uses are the parts a person would
- * use to describe a screen saver: a call that passes named arguments.
+ * The current .conf format uses `Key = value` lines. The former static call
+ * syntax is also accepted for migration; nothing is interpreted as Python or
+ * executed.
  *
  *     gcl_SS.Effect(Name="pipe", PrimaryColor="#d400ff", IdleSeconds=300)
  *
- * So this is not a Python interpreter and must not become one. It reads
- * statements, calls with named arguments, and the values a person writes —
+ * It reads assignments and legacy calls with named arguments, and the values
+ * a person writes —
  * strings, numbers, flags, lists — and produces a list for the config module to
  * walk.
  *

@@ -1,13 +1,11 @@
 /*
  * ss_config.h — the settings GnuChanSS is built from.
  *
- * GnuChanSS is configured by a script, not by a file of key = value pairs, the
- * same way GnuChanWM and GnuChanTerm are: the same file a person would write to
- * pick the effect or recolour it. That script is Python, and this header is the
- * shape of what running it produces — the small, fixed set of things a screen
- * saver can be asked for.
+ * GnuChanSS is configured by a plain Key = value file. Older static call
+ * syntax is parsed without execution for compatibility. This header is the
+ * small, fixed set of values a screen saver can be asked for.
  *
- * Everything here is plain data. The script is read by ss_parser.c, walked by
+ * Everything here is plain data. The file is read by ss_parser.c, walked by
  * ss_config.c, and drawn by GnuChanSS.c. Nothing in this header knows about X.
  */
 #ifndef GNUCHANSS_CONFIG_H
@@ -17,7 +15,7 @@
    them and shared by the parser and the config so one length governs both. */
 #define SS_TEXT_LENGTH 256
 
-/* The effects a script may name. Adding an effect is adding one enumerator and
+/* The effects a file may name. Adding an effect is adding one enumerator and
    one branch in the drawing code, exactly as a bar widget is added in the WM.
    The enum is SsEffectKind and not SsEffect, which is the struct an effect's
    running state lives in (ss_effect.h): an enum and a struct of the same name
@@ -29,7 +27,7 @@ typedef enum SsEffectKind {
 } SsEffectKind;
 
 typedef struct SsConfig {
-    /* Which effect runs. The script names it: Name="pipe" / Name="3dwall". A
+    /* Which effect runs. The file names it: Name="pipe" / Name="3dwall". A
        name that matches nothing is left as the default and said so on stderr,
        because a screen saver that comes up blank is worse than one that comes
        up as the pipe. */
@@ -68,8 +66,8 @@ int ss_config_load(SsConfig *config, const char *path);
    file. Always leaves a usable config. Returns 0 when a file was read. */
 int ss_config_load_default(SsConfig *config);
 
-/* Where the script is looked for: $XDG_CONFIG_HOME/GnuChanSS/GnuChanSS.py, or
-   ~/.config/GnuChanSS/GnuChanSS.py. Written into buffer, which is returned. */
+/* Where settings are looked for: $XDG_CONFIG_HOME/GnuChanSS/GnuChanSS.conf, or
+   ~/.config/GnuChanSS/GnuChanSS.conf. */
 char *ss_config_path(char *buffer, unsigned int size);
 
 /* The effect a written name stands for, and the name an effect is written as.
